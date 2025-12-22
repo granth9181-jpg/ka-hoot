@@ -1,1 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Kahoot! — Join</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --purple:#6a1b9a; /* deep purple */
+      --purple-dark:#5b1790;
+      --white:#ffffff;
+      --input-bg:#ffffff;
+      --card-bg:rgba(255,255,255,0.12);
+      --muted:rgba(255,255,255,0.85);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'Montserrat', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: radial-gradient(circle at 20% 20%, rgba(0,0,0,0.06) 0%, transparent 15%),
+                  linear-gradient(135deg,var(--purple) 0%, var(--purple-dark) 100%);
+      color:var(--white);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+    }
+    /* Decorative shapes similar to Kahoot's page */
+    .shape{
+      position:absolute;
+      border-radius:20px;
+      opacity:0.12;
+      filter: blur(18px);
+    }
+    .shape.large{width:520px;height:520px;right:-120px;bottom:-90px;background:#2b0b45;opacity:0.12;border-radius:50%;}
+    .shape.square{width:380px;height:380px;left:-140px;top:-140px;background:#3c0f63;transform:rotate(45deg);}
 
+    .container{
+      position:relative;
+      width:100%;
+      max-width:720px;
+      padding:48px 24px;
+      box-sizing:border-box;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:320px;
+    }
+    .join-card{
+      width:100%;
+      max-width:420px;
+      background:transparent;
+      text-align:center;
+    }
+    .logo{
+      font-weight:800;
+      font-size:48px;
+      letter-spacing:1px;
+      margin-bottom:28px;
+      display:inline-block;
+    }
+    /* Mock of the join box */
+    .join-box{
+      background:var(--card-bg);
+      padding:18px;
+      border-radius:6px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.06) inset, 0 8px 30px rgba(0,0,0,0.18);
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-direction:column;
+    }
+    .pin-input{
+      width:100%;
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    input[type="text"]{
+      flex:1;
+      padding:10px 12px;
+      border-radius:3px;
+      border:0;
+      font-size:18px;
+      background:var(--input-bg);
+      color:#111;
+      box-shadow:0 1px 0 rgba(0,0,0,0.08);
+      outline:none;
+    }
+    .btn{
+      background:#ffffff;
+      color:#2a2a2a;
+      padding:10px 18px;
+      border-radius:3px;
+      border:0;
+      cursor:pointer;
+      font-weight:600;
+      transition:transform .08s ease, box-shadow .08s ease;
+      box-shadow:0 6px 0 rgba(0,0,0,0.06);
+    }
+    .btn:active{transform:translateY(2px);box-shadow:0 4px 0 rgba(0,0,0,0.06);}
+    .secondary{
+      background:transparent;
+      color:var(--white);
+      border:1px solid rgba(255,255,255,0.12);
+      padding:8px 14px;
+      font-weight:600;
+    }
+    .hint{color:var(--muted);font-size:14px;margin-top:12px}
+
+    /* small top-right toggle like in screenshot */
+    .top-right{position:fixed;right:18px;top:18px}
+    .toggle{
+      background:rgba(255,255,255,0.14);
+      padding:6px 10px;border-radius:999px;color:var(--white);font-size:13px;font-weight:600;border:0;cursor:pointer
+    }
+
+    @media (max-width:520px){
+      .logo{font-size:36px}
+      .container{padding:28px 16px}
+    }
+  </style>
+</head>
+<body>
+  <div class="shape square" aria-hidden="true"></div>
+  <div class="shape large" aria-hidden="true"></div>
+
+  <div class="container">
+    <main class="join-card" role="main">
+      <div class="logo" aria-hidden="true">Kahoot!</div>
+
+      <section class="join-box" aria-label="Join game">
+        <div style="width:100%" class="pin-input">
+          <input id="game-pin" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Enter PIN" aria-label="Game PIN">
+          <button id="join-btn" class="btn" type="button">OK, go!</button>
+        </div>
+        <div style="width:100%;margin-top:10px;display:flex;gap:10px;justify-content:center">
+          <button class="secondary" type="button">Log in</button>
+          <button class="secondary" type="button">Create</button>
+        </div>
+        <div class="hint">Enter the game PIN provided by the host.</div>
+      </section>
+
+    </main>
+  </div>
+
+  <div class="top-right">
+    <button class="toggle" type="button">EN</button>
+  </div>
+
+  <script>
+    // All buttons are intentionally non-navigating. They provide visual feedback only.
+    document.querySelectorAll('button').forEach(btn=>{
+      btn.addEventListener('click', (e)=>{
+        // simple ripple/press effect handled via CSS :active; don't perform navigation
+        e.preventDefault();
+        // small accessible feedback for screen readers
+        btn.setAttribute('aria-pressed', 'true');
+        setTimeout(()=>btn.removeAttribute('aria-pressed'), 250);
+      });
+    });
+
+    // Make Enter key on input press the join button (still does nothing)
+    const pin = document.getElementById('game-pin');
+    const join = document.getElementById('join-btn');
+    pin.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter'){
+        e.preventDefault();
+        join.click();
+      }
+    });
+  </script>
+</body>
+</html>
