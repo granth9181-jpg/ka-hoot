@@ -3,113 +3,62 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kahoot-style landing</title>
-
-  <!-- Fonts: kept in case other text needs it -->
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Enter Game PIN - Kahoot!</title>
 
   <style>
     :root{
-      --bg: #46178F; /* updated background color per request */
-      --card-bg: #ffffff;
-      --muted: #6b6b6b;
-      --accent: #1f0a44;
+      --accent:#7b4bff;
+      --bg:#f7f7fb;
     }
 
     html,body{
       height:100%;
       margin:0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #fff;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background:var(--bg);
+      color:#111;
     }
 
-    /* Center layout */
     .wrap{
       min-height:100%;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:40px 16px;
-      box-sizing:border-box;
-      flex-direction:column;
-    }
-
-    /* subtle decorative shapes in the background (non-intrusive) */
-    .bg-shapes{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      overflow:hidden;
-      z-index:0;
-    }
-    .bg-shapes::before,
-    .bg-shapes::after{
-      content:"";
-      position:absolute;
-      border-radius:20%;
-      opacity:0.08;
-      filter:blur(40px);
-      transform:translateZ(0);
-    }
-    .bg-shapes::before{
-      width:420px;
-      height:420px;
-      right:-90px;
-      bottom:-100px;
-      background: #000;
-    }
-    .bg-shapes::after{
-      width:240px;
-      height:240px;
-      left:-80px;
-      top:-60px;
-      background: #000;
+      padding:28px 16px;
     }
 
     /* Card */
     .card{
-      position:relative;
-      z-index:1;
-      background: rgba(255,255,255,0.95);
-      color: #222;
-      width:360px;
-      max-width:94%;
-      padding:32px;
-      border-radius:6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      width:420px;
+      max-width:100%;
+      background:#fff;
+      border-radius:10px;
+      box-shadow: 0 8px 30px rgba(15,6,46,0.08);
+      padding:18px; /* reduced from larger padding to shrink whitespace */
       text-align:center;
-      box-sizing:border-box;
     }
 
-    /* Logo image (replaces text logo) */
+    /* Logo */
     .logo-img{
       display:block;
-      margin: 0 0 18px 0;
+      margin:0 auto 12px; /* smaller gap below logo */
       width:320px;
-      max-width:72%;
+      max-width:84%;
       height:auto;
-      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.25));
     }
 
-    /* Form */
     .label{
       display:block;
-      text-transform:uppercase;
-      font-size:12px;
-      letter-spacing:1px;
-      color:var(--muted);
-      margin-bottom:8px;
-      text-align:center;
+      font-size:14px;
+      color:#6f6f6f;
+      margin-bottom:6px;
     }
 
     .pin-input{
+      font-size:18px;
+      padding:10px 12px;
       width:100%;
       box-sizing:border-box;
-      padding:12px 14px;
-      font-size:18px;
       border:2px solid #d9d9d9;
       border-radius:4px;
       outline:none;
@@ -125,7 +74,7 @@
 
     /* Enter button beneath input */
     .enter-btn{
-      margin-top:14px;
+      margin-top:10px; /* reduced margin to shrink whitespace */
       width:100%;
       padding:10px 14px;
       font-size:16px;
@@ -142,14 +91,14 @@
 
     /* Small helper / accessibility text */
     .helper{
-      margin-top:10px;
+      margin-top:8px; /* slightly reduced */
       font-size:13px;
       color:#6f6f6f;
     }
 
     @media (max-width:420px){
       .logo-img{ width:260px; max-width:80%; }
-      .card{ padding:22px; }
+      .card{ padding:14px; }
       .pin-input{ font-size:16px; }
     }
   </style>
@@ -158,13 +107,11 @@
   <div class="bg-shapes" aria-hidden="true"></div>
 
   <div class="wrap">
-    <!-- Replace the text logo with your provided image.
-         Save the image you provided as "kahoot-logo.png" next to this index.html
-         or change the src below to the correct path/URL. -->
-    <img src="kahoot-logo.png" alt="Kahoot!" class="logo-img" />
+    <!-- Center image replaced with the provided kahoot SVG -->
+    <img src="https://assets-cdn.kahoot.it/controller/v2/assets/kahoot-big-C7zZfoZN.svg" alt="Kahoot!" class="logo-img" />
 
-    <main class="card" role="main" aria-labelledby="enter-pin">
-      <label id="enter-pin" for="pin" class="label">Enter pin</label>
+    <!-- Removed the visible 'Enter pin' label. main keeps an accessible label for screen readers -->
+    <main class="card" role="main" aria-label="Enter Game PIN">
       <input id="pin" class="pin-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Enter game pin" aria-label="Enter game pin" />
 
       <button id="enter" class="enter-btn">Enter</button>
