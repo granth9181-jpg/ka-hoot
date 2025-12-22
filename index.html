@@ -3,152 +3,210 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1552208397150605"
-     crossorigin="anonymous"></script>
-  <title>Enter Game PIN - Kahoot!</title>
+  <title>Kahoot-style landing</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
   <style>
     :root{
-      --accent:#7b4bff;
-      --bg:#f7f7fb;
+      --bg: #46178f; /* requested background color */
+      --card-bg: #ffffff;
+      --muted: #6b6b6b;
+      --accent: #1f0a44;
+      --white-95: rgba(255,255,255,0.95);
     }
 
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background:var(--bg);
-      color:#111;
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: var(--bg);
+      color: #fff;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Full-page container */
     .wrap{
-      min-height:100%;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      padding:28px 16px;
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
     }
 
-    /* Card */
-    .card{
-      width:420px;
-      max-width:100%;
-      background:#fff;
-      border-radius:10px;
-      box-shadow: 0 8px 30px rgba(15,6,46,0.08);
-      padding:18px; /* reduced from larger padding to shrink whitespace */
-      text-align:center;
+    /* Decorative background shapes */
+    .shape {
+      position: absolute;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.06;
+      filter: blur(24px);
     }
 
-    /* Logo */
-    .logo-img{
+    /* Large rotated diamond (top-left) */
+    .shape.diamond {
+      width: 520px;
+      height: 520px;
+      background: #000;
+      top: -160px;
+      left: -160px;
+      transform: rotate(45deg);
+      border-radius: 10%;
+    }
+
+    /* Large circle (bottom-right) */
+    .shape.circle {
+      width: 520px;
+      height: 520px;
+      background: #000;
+      right: -160px;
+      bottom: -160px;
+      border-radius: 50%;
+    }
+
+    /* Center card container */
+    .center {
+      z-index: 1;
+      width: 720px;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      box-sizing: border-box;
+      flex-direction: column;
+    }
+
+    /* Logo area */
+    .logo {
+      font-family: "Luckiest Guy", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color: #fff;
+      font-size: 56px;
+      line-height: 1;
+      letter-spacing: -1px;
+      text-shadow: 0 8px 18px rgba(0,0,0,0.35);
+      margin: 0;
+      text-align: center;
+    }
+
+    /* Card (input + button) */
+    .card {
+      background: var(--card-bg);
+      color: #222;
+      width: 360px;
+      max-width: 92%;
+      padding: 22px;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .label {
       display:block;
-      margin:0 auto 12px; /* smaller gap below logo */
-      width:320px;
-      max-width:84%;
-      height:auto;
+      text-transform:uppercase;
+      font-size:12px;
+      letter-spacing:1px;
+      color:var(--muted);
+      margin-bottom:8px;
     }
 
-    .label{
-      display:block;
-      font-size:14px;
-      color:#6f6f6f;
-      margin-bottom:6px;
-    }
-
-    .pin-input{
-      font-size:18px;
-      padding:10px 12px;
+    .pin-input {
       width:100%;
       box-sizing:border-box;
-      border:2px solid #d9d9d9;
+      padding:12px 14px;
+      font-size:18px;
+      border:2px solid #e6e6e6;
       border-radius:4px;
       outline:none;
-      transition:box-shadow .12s, border-color .12s;
-      text-align:center;
-      background:#fff;
-      color:#111;
+      transition: box-shadow .15s ease, border-color .15s ease;
+      margin-bottom:14px;
     }
-    .pin-input:focus{
-      box-shadow:0 0 0 4px rgba(43,11,83,0.06);
-      border-color: #b9a3ff;
+    .pin-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 6px 18px rgba(31,10,68,0.08);
     }
 
-    /* Enter button beneath input */
-    .enter-btn{
-      margin-top:10px; /* reduced margin to shrink whitespace */
+    .btn {
+      display:block;
       width:100%;
-      padding:10px 14px;
-      font-size:16px;
+      padding:12px 14px;
+      background: #111;
+      color: #fff;
       font-weight:600;
+      border: none;
       border-radius:4px;
-      border:2px solid var(--accent);
-      background:var(--accent);
-      color:#fff;
-      cursor:pointer;
-      transition:transform .08s ease, box-shadow .08s;
+      cursor: pointer;
+      font-size:15px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
     }
-    .enter-btn:active{ transform:translateY(1px); }
-    .enter-btn:hover{ box-shadow: 0 6px 18px rgba(15,6,46,0.25); }
-
-    /* Small helper / accessibility text */
-    .helper{
-      margin-top:8px; /* slightly reduced */
-      font-size:13px;
-      color:#6f6f6f;
+    .btn.secondary {
+      background:#efefef;
+      color:#222;
+      margin-top:8px;
+      box-shadow:none;
+      border:1px solid #e0e0e0;
     }
 
-    @media (max-width:420px){
-      .logo-img{ width:260px; max-width:80%; }
-      .card{ padding:14px; }
-      .pin-input{ font-size:16px; }
+    /* Small top-right control (optional) */
+    .top-right {
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      z-index: 2;
+      color: rgba(255,255,255,0.9);
+      font-size: 13px;
+      background: rgba(255,255,255,0.06);
+      padding: 8px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
     }
+
+    /* Responsive tweaks */
+    @media (min-width: 880px) {
+      .center { flex-direction: row; align-items: center; }
+      .logo { font-size: 72px; text-align: left; }
+      .card { margin-left: 8px; }
+    }
+
   </style>
 </head>
 <body>
-  <div class="bg-shapes" aria-hidden="true"></div>
-
   <div class="wrap">
-    <!-- Center image replaced with the provided kahoot SVG -->
-    <img src="https://assets-cdn.kahoot.it/controller/v2/assets/kahoot-big-C7zZfoZN.svg" alt="Kahoot!" class="logo-img" />
 
-    <!-- Removed the visible 'Enter pin' label. main keeps an accessible label for screen readers -->
-    <main class="card" role="main" aria-label="Enter Game PIN">
-      <input id="pin" class="pin-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Enter game pin" aria-label="Enter game pin" />
+    <div class="shape diamond" aria-hidden="true"></div>
+    <div class="shape circle" aria-hidden="true"></div>
 
-      <button id="enter" class="enter-btn">Enter</button>
+    <div class="top-right">EN</div>
 
-      <div class="helper" id="status" aria-live="polite"></div>
+    <main class="center" role="main" aria-labelledby="site-title">
+      <h1 id="site-title" class="logo">Kahoot!</h1>
+
+      <section class="card" aria-labelledby="join-title">
+        <label id="join-title" class="label" for="pin">Enter nickname</label>
+        <input id="pin" class="pin-input" type="text" placeholder="willshow" />
+
+        <button class="btn" type="button" id="go-btn">OK, go!</button>
+      </section>
     </main>
+
   </div>
 
   <script>
-    // Minimal behaviour: focus input on load and support Enter key
-    (function(){
-      var pinEl = document.getElementById('pin');
-      var btn = document.getElementById('enter');
-      var status = document.getElementById('status');
-
-      // Autofocus if visible
-      setTimeout(function(){ try { pinEl.focus(); } catch(e){} }, 200);
-
-      function submitPin(){
-        var pin = (pinEl.value || '').trim();
-        if(!pin){
-          status.textContent = 'Please enter a pin.';
-          pinEl.focus();
-          return;
-        }
-        // Replace with real submit logic:
-        status.textContent = 'Trying pin: ' + pin;
-        // e.g. window.location = '/game?pin=' + encodeURIComponent(pin);
+    // small behavior: prevent form submit (no backend here)
+    document.getElementById('go-btn').addEventListener('click', function(){
+      const name = document.getElementById('pin').value.trim();
+      if(!name) {
+        document.getElementById('pin').focus();
+        return;
       }
-
-      btn.addEventListener('click', submitPin);
-      pinEl.addEventListener('keydown', function(e){
-        if(e.key === 'Enter') submitPin();
-      });
-    })();
+      alert('Joining as: ' + name);
+    });
   </script>
 </body>
 </html>
