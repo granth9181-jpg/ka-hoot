@@ -3,210 +3,67 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Kahoot-style landing</title>
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <title>Enter Game PIN - Kahoot!</title>
   <style>
-    :root{
-      --bg: #46178f; /* requested background color */
-      --card-bg: #ffffff;
-      --muted: #6b6b6b;
-      --accent: #1f0a44;
-      --white-95: rgba(255,255,255,0.95);
-    }
+    :root{ --accent:#7b61ff; }
+    html,body{ height:100%; margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background:#f6f7fb; color:#111 }
+    .bg-shapes{ position:fixed; inset:0; background:linear-gradient(180deg, rgba(123,97,255,0.06), rgba(123,97,255,0.02)); pointer-events:none }
+    .wrap{ min-height:100%; display:flex; align-items:center; justify-content:center; padding:24px }
+    .card{ max-width:420px; width:100%; background:#fff; padding:20px; border-radius:12px; box-shadow:0 8px 30px rgba(16,10,46,0.08); text-align:center }
 
-    html, body {
-      height: 100%;
-      margin: 0;
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: var(--bg);
-      color: #fff;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
+    /* Logo above the card, centered */
+    .logo-img{ display:block; width:320px; max-width:80%; margin:0 auto 14px auto }
 
-    /* Full-page container */
-    .wrap{
-      min-height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 40px 16px;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
-    }
+    .pin-input{ width:100%; padding:12px 14px; font-size:18px; border:2px solid #e6e6e6; border-radius:8px; text-align:center; background:#fff }
+    .enter-btn{ margin-top:12px; width:100%; padding:10px 14px; font-size:16px; font-weight:600; border-radius:8px; border:2px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer }
+    .helper{ margin-top:10px; font-size:13px; color:#6f6f6f }
 
-    /* Decorative background shapes */
-    .shape {
-      position: absolute;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.06;
-      filter: blur(24px);
-    }
-
-    /* Large rotated diamond (top-left) */
-    .shape.diamond {
-      width: 520px;
-      height: 520px;
-      background: #000;
-      top: -160px;
-      left: -160px;
-      transform: rotate(45deg);
-      border-radius: 10%;
-    }
-
-    /* Large circle (bottom-right) */
-    .shape.circle {
-      width: 520px;
-      height: 520px;
-      background: #000;
-      right: -160px;
-      bottom: -160px;
-      border-radius: 50%;
-    }
-
-    /* Center card container */
-    .center {
-      z-index: 1;
-      width: 720px;
-      max-width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 40px;
-      box-sizing: border-box;
-      flex-direction: column;
-    }
-
-    /* Logo area */
-    .logo {
-      font-family: "Luckiest Guy", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      color: #fff;
-      font-size: 56px;
-      line-height: 1;
-      letter-spacing: -1px;
-      text-shadow: 0 8px 18px rgba(0,0,0,0.35);
-      margin: 0;
-      text-align: center;
-    }
-
-    /* Card (input + button) */
-    .card {
-      background: var(--card-bg);
-      color: #222;
-      width: 360px;
-      max-width: 92%;
-      padding: 22px;
-      border-radius: 6px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      text-align: center;
-      box-sizing: border-box;
-    }
-
-    .label {
-      display:block;
-      text-transform:uppercase;
-      font-size:12px;
-      letter-spacing:1px;
-      color:var(--muted);
-      margin-bottom:8px;
-    }
-
-    .pin-input {
-      width:100%;
-      box-sizing:border-box;
-      padding:12px 14px;
-      font-size:18px;
-      border:2px solid #e6e6e6;
-      border-radius:4px;
-      outline:none;
-      transition: box-shadow .15s ease, border-color .15s ease;
-      margin-bottom:14px;
-    }
-    .pin-input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 6px 18px rgba(31,10,68,0.08);
-    }
-
-    .btn {
-      display:block;
-      width:100%;
-      padding:12px 14px;
-      background: #111;
-      color: #fff;
-      font-weight:600;
-      border: none;
-      border-radius:4px;
-      cursor: pointer;
-      font-size:15px;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
-    }
-    .btn.secondary {
-      background:#efefef;
-      color:#222;
-      margin-top:8px;
-      box-shadow:none;
-      border:1px solid #e0e0e0;
-    }
-
-    /* Small top-right control (optional) */
-    .top-right {
-      position: absolute;
-      right: 18px;
-      top: 18px;
-      z-index: 2;
-      color: rgba(255,255,255,0.9);
-      font-size: 13px;
-      background: rgba(255,255,255,0.06);
-      padding: 8px 10px;
-      border-radius: 999px;
-      backdrop-filter: blur(4px);
-    }
-
-    /* Responsive tweaks */
-    @media (min-width: 880px) {
-      .center { flex-direction: row; align-items: center; }
-      .logo { font-size: 72px; text-align: left; }
-      .card { margin-left: 8px; }
-    }
-
+    @media (max-width:420px){ .logo-img{ width:260px; } .card{ padding:14px } .pin-input{ font-size:16px } }
   </style>
 </head>
 <body>
+  <div class="bg-shapes" aria-hidden="true"></div>
+
   <div class="wrap">
+    <div>
+      <!-- Kahoot logo placed above the card and centered -->
+      <img src="https://assets-cdn.kahoot.it/controller/v2/assets/kahoot-big-C7zZfoZN.svg" alt="Kahoot!" class="logo-img" />
 
-    <div class="shape diamond" aria-hidden="true"></div>
-    <div class="shape circle" aria-hidden="true"></div>
+      <main class="card" role="main" aria-label="Enter Game PIN">
+        <!-- Input labelled "Enter game pin" as requested -->
+        <input id="pin" class="pin-input" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="Enter game pin" aria-label="Enter game pin" />
 
-    <div class="top-right">EN</div>
+        <!-- Button intentionally does nothing when pressed (no navigation, no popup) -->
+        <button id="enter" class="enter-btn" type="button">OK</button>
 
-    <main class="center" role="main" aria-labelledby="site-title">
-      <h1 id="site-title" class="logo">Kahoot!</h1>
-
-      <section class="card" aria-labelledby="join-title">
-        <label id="join-title" class="label" for="pin">Enter nickname</label>
-        <input id="pin" class="pin-input" type="text" placeholder="willshow" />
-
-        <button class="btn" type="button" id="go-btn">OK, go!</button>
-      </section>
-    </main>
-
+        <div class="helper" id="status" aria-live="polite"></div>
+      </main>
+    </div>
   </div>
 
   <script>
-    // small behavior: prevent form submit (no backend here)
-    document.getElementById('go-btn').addEventListener('click', function(){
-      const name = document.getElementById('pin').value.trim();
-      if(!name) {
-        document.getElementById('pin').focus();
-        return;
+    // Minimal JS: keep the input focused but make the button/enter key do nothing (no popups, no navigation).
+    (function(){
+      var pinEl = document.getElementById('pin');
+      var btn = document.getElementById('enter');
+
+      // Autofocus the PIN field (if visible)
+      setTimeout(function(){ try { pinEl.focus(); } catch(e){} }, 200);
+
+      // Intentionally empty handler: clicking the button or pressing Enter will not perform any action.
+      function noop(e){
+        // Prevent form submission or default behaviour
+        if(e && typeof e.preventDefault === 'function') e.preventDefault();
+        // Do not modify the page, do not show messages.
+        return false;
       }
-      alert('Joining as: ' + name);
-    });
+
+      btn.addEventListener('click', noop);
+
+      pinEl.addEventListener('keydown', function(e){
+        if(e.key === 'Enter') noop(e);
+      });
+    })();
   </script>
 </body>
 </html>
