@@ -130,6 +130,7 @@
       var btn = document.getElementById("enter");
 
       var slopeURL = "slope/index.html";
+      var oneURL = "1v1/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -140,6 +141,9 @@
 
         if (value === "slope") {
           window.location.href = slopeURL;
+        }
+        if (value === "1v1", "1v1lol", "1v1.lol") {
+          window.location.href = oneURL;
         }
       }
 
