@@ -1,40 +1,167 @@
-
-<!-- Play on Poki -->
-<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1552208397150605"
+     crossorigin="anonymous"></script>
 
-	<title>Rooftop Snipers 2 - Play on Poki</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Enter Game PIN - Kahoot!</title>
+  <link rel="icon" type="image/png" href="kahoot.png">
 
-	<script>
-	window.config = {
-		loader: 'unity',
-		debug: false,
-		maxRatio: 16 / 9,
-		minRatio: 9 / 16,
+  <!-- Montserrat font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
 
-		title: 'Rooftop Snipers 2',
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: "Montserrat", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #46178f;
+    }
 
-		thumbnail: '895b299e7e49558ca383b23648314860.jpg',
-		numScreenshots: 4,
+    .wrap {
+      min-height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
 
-		unityWebglBuildUrl: 'RooftopSnipers2.json',
-		unityWebglLoaderUrl: 'UnityLoader.js',
+    .container {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
 
-		// **** Optional Settings ****
-		fileSize: 10,
-		loadingComments: ['Loading...'],
-		cachedDecompressedFileSizes: {
-			'RooftopSnipers2.wasm.framework.unityweb':475014,
-			'RooftopSnipers2.data.unityweb':9563147,
-			'RooftopSnipers2.wasm.code.unityweb':17055668,
-		},
-		//
-	};
-	</script>
+    .logo-img {
+      display: block;
+      width: 300px;
+      max-width: 80%;
+      margin: 0 auto 18px;
+    }
+
+    .pin-input,
+    .enter-btn {
+      width: 90%;
+      height: 52px;
+      box-sizing: border-box;
+      font-size: 18px;
+      border-radius: 6px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    .pin-input {
+      padding: 0 16px;
+      font-weight: 600;
+      text-align: center;
+      border: none;
+      outline: none;
+      background: #ffffff;
+      color: #333;
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .pin-input::placeholder {
+      color: #666;
+      font-weight: 600;
+    }
+
+    .enter-btn {
+      margin-top: 12px;
+      font-weight: 700;
+      border: none;
+      background: #111;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .enter-btn:active {
+      transform: translateY(1px);
+    }
+
+    .footer-text {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      padding: 10px 0;
+      margin: 0;
+      color: #fff;
+    }
+    @media (max-width: 420px) {
+      .logo-img {
+        width: 240px;
+      }
+    }
+  </style>
 </head>
 <body>
-	<script src="master-loader.js"></script>
+  <div class="wrap">
+    <div class="container">
+      <img
+        src="https://assets-cdn.kahoot.it/controller/v2/assets/kahoot-big-C7zZfoZN.svg"
+        alt="Kahoot!"
+        class="logo-img"
+      />
+
+      <input
+        id="pin"
+        class="pin-input"
+        type="text"
+        placeholder="Game PIN"
+        aria-label="Game PIN"
+      />
+
+      <button id="enter" class="enter-btn" type="button">
+        Enter
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var pinEl = document.getElementById("pin");
+      var btn = document.getElementById("enter");
+
+      var slopeURL = "slope/index.html";
+      var rooptopURL = "rooftop/index.html";
+
+      setTimeout(function () {
+        try { pinEl.focus(); } catch (e) {}
+      }, 200);
+
+      function checkCode() {
+        var value = pinEl.value.trim().toLowerCase();
+
+        if (value === "slope") {
+          window.location.href = slopeURL;
+        }
+        if (value === "rooftop", "rooftopsnipers", "rooftopsnipers2", "rs2" "rs") {
+          window.location.href = rooftopURL;
+        }
+      }
+
+      btn.addEventListener("click", function (e) {
+        e.preventDefault();
+        checkCode();
+      });
+
+      pinEl.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          checkCode();
+        }
+      });
+    })();
+  </script>
+  <footer>
+    <p class="footer-text">Terms | Privacy | Cookie notice</p>
+  </footer>
 </body>
 </html>
