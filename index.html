@@ -125,8 +125,7 @@
       var pinEl = document.getElementById("pin");
       var btn = document.getElementById("enter");
 
-      // CHANGE THIS LATER to your Retro Bowl page
-      var retroBowlURL = "retrobowl/index.html";
+      var slopeURL = "slope/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -135,8 +134,8 @@
       function checkCode() {
         var value = pinEl.value.trim().toLowerCase();
 
-        if (value === "retrobowl") {
-          window.location.href = retroBowlURL;
+        if (value === "slope") {
+          window.location.href = slopeURL;
         }
       }
 
