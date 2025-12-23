@@ -131,6 +131,7 @@
 
       var slopeURL = "slope/index.html";
       var cookieURL = "cookie/index.html";
+      var ovoURL = "ovo/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -144,6 +145,9 @@
         }     
         if (value === "cookie" || value === "cookieclicker") {
           window.location.href = cookieURL;
+        }
+        if (value === "ovo") {
+          window.location.href = ovoURL;
         }
       }
 
