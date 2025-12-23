@@ -130,6 +130,7 @@
       var btn = document.getElementById("enter");
 
       var slopeURL = "slope/index.html";
+      var cookieURL = "cookie/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -141,6 +142,9 @@
         if (value === "slope") {
           window.location.href = slopeURL;
         }     
+        if (value === "cookie", "cookieclicker") {
+          window.location.href = cookieURL;
+        }
       }
 
       btn.addEventListener("click", function (e) {
