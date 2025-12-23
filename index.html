@@ -132,6 +132,7 @@
       var slopeURL = "slope/index.html";
       var cookieURL = "cookie/index.html";
       var ovoURL = "ovo/index.html";
+      var polyURL = "polytrack/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -149,6 +150,8 @@
         if (value === "ovo") {
           window.location.href = ovoURL;
         }
+        if (value === "polytrack") {
+          window.location.href = polyURL
       }
 
       btn.addEventListener("click", function (e) {
