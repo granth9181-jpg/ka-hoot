@@ -130,7 +130,6 @@
       var btn = document.getElementById("enter");
 
       var slopeURL = "slope/index.html";
-      var rooftopURL = "rooftop/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -141,10 +140,7 @@
 
         if (value === "slope") {
           window.location.href = slopeURL;
-        }
-        if (value === "rooftop", "rooftopsnipers", "rooftopsnipers2", "rs2", "rs") {
-          window.location.href = rooftopURL;
-        }
+        }     
       }
 
       btn.addEventListener("click", function (e) {
