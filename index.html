@@ -130,6 +130,7 @@
       var cookieURL = "cookie/index.html";
       var ovoURL = "ovo/index.html";
       var polyURL = "polytrack/index.html";
+      var snowURL = "Snow-Rider3D-main.zip";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -150,6 +151,10 @@
         if (value === "polytrack" || value === "poly") {
           window.location.href = polyURL
         }
+        
+        if (value === "snow" || "snowrider" || "snowrider3d") {
+          window.location.href = snowURL;
+        }     
       }
 
       btn.addEventListener("click", function (e) {
