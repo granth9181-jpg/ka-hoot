@@ -130,6 +130,7 @@
       var cookieURL = "cookie/index.html";
       var ovoURL = "ovo/index.html";
       var polyURL = "polytrack/index.html";
+      var roofURL = "rs2/index.html";
 
       setTimeout(function () {
         try { pinEl.focus(); } catch (e) {}
@@ -149,6 +150,9 @@
         }
         if (value === "polytrack" || value === "poly") {
           window.location.href = polyURL
+        }
+        if (value === "rooftop" || value === "rs2" || value === "rooftopsnipers2") {
+          window.location.href = roofURL
         }
       }
 
